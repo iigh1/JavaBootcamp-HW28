@@ -54,6 +54,10 @@ public class OrderController {
         orderService.assignProductToOrder(myUser.getId(), orderId, productId);
         return ResponseEntity.status(200).body("assigned done");
     }
+    @GetMapping("/get/{id}")
+    public ResponseEntity getOrder(@AuthenticationPrincipal MyUser myUser, @PathVariable Integer id){
+        return ResponseEntity.status(200).body(orderService.getOrder(myUser.getId(), id));
+    }
 
     @PutMapping("/status/{orderId}/{status}")
     public ResponseEntity changeStatus(@AuthenticationPrincipal MyUser myUser, @PathVariable Integer orderId,@PathVariable String status){
