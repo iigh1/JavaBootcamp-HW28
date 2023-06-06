@@ -89,6 +89,14 @@ public class OrderService {
         myOrder.setTotalPrice(product.getPrice()*myOrder.getQuantity());
         orderRepository.save(myOrder);
     }
+    
+        public MyOrder getOrder(Integer userId, Integer orderId){
+        MyUser user = authRepository.findMyUserById(userId);
+        MyOrder myOrder=orderRepository.findMyOrderById(orderId);
+        if(user == null || myOrder == null || (userId != myOrder.getMyUser().getId() && user.getRole().equalsIgnoreCase("customer")))
+            throw new ApiException("Invalid");
+        return myOrder;
+    }
 
 
     public void changStatus(Integer userId,Integer orderId, String status){
