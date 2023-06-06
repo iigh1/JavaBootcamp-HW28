@@ -62,8 +62,9 @@ public class OrderService {
 
     }
 
-    public void deleteOrder(MyUser myUser,Integer id){
+    public void deleteOrder(Integer userId,Integer id){
 
+       MyUser myUser=authRepository.findMyUserById(userId);
         MyOrder myOrder= orderRepository.findMyOrderById(id);
         if (myOrder==null || myOrder.getStatus().equals("inProgress")){
             throw  new ApiException("can't deleted");
@@ -71,8 +72,9 @@ public class OrderService {
         orderRepository.delete(myOrder);
     }
 
-    public MyOrder getOrderById(MyUser myUser, Integer id){
+    public MyOrder getOrderById(Integer userId, Integer id){
         MyOrder myOrder=orderRepository.findMyOrderById(id);
+        MyUser myUser=authRepository.findMyUserById(userId);
 
         if (myOrder==null){
             throw  new ApiException("Order not found");
