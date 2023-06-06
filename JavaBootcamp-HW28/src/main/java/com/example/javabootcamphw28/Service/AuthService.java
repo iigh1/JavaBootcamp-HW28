@@ -28,12 +28,4 @@ public class AuthService {
         authRepository.save(myUser);
     }
 
-    public MyUser getMyUserById(MyUser myUser, Integer id){
-        MyUser myUser1=authRepository.findMyUserById(id);
-        if (myUser1==null){
-            throw new ApiException("not found");
-        }
-        return myUser1;
-
-    }
 }
